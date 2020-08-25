@@ -6,6 +6,7 @@ import Layout from '../components/layout'
 import { getAllMatchesForHome } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
+import Header from '../components/header'
 // import Header from '../components/header'
 
 export default function Index({ allMatches, preview }) {
@@ -17,6 +18,7 @@ export default function Index({ allMatches, preview }) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
+        <Header />
         <Container>
         {/* <Header /> */}
           {/* <Intro /> */}
