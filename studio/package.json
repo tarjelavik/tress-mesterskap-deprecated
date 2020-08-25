@@ -21,6 +21,7 @@
     "@sanity/production-preview": "^1.150.1",
     "@ssfbank/sanity-plugin-byo-table": "^2.0.0",
     "bcp47": "^1.1.2",
+    "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
