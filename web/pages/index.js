@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 import { getAllMatchesForHome } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
-import Header from '../components/Header'
+// import Header from '../components/header'
 
 export default function Index({ allMatches, preview }) {
   const heroMatch = allMatches[0]
@@ -18,7 +18,7 @@ export default function Index({ allMatches, preview }) {
           <title>{CMS_NAME}</title>
         </Head>
         <Container>
-        <Header />
+        {/* <Header /> */}
           {/* <Intro /> */}
           {heroMatch && (
             <HeroPost
