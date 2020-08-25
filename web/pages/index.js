@@ -18,9 +18,8 @@ export default function Index({ allMatches, preview }) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
-        <Header />
         <Container>
-        {/* <Header /> */}
+        <Header />
           {/* <Intro /> */}
           {heroMatch && (
             <HeroPost
