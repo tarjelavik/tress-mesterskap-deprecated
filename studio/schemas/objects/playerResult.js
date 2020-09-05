@@ -4,25 +4,24 @@ export default {
   title: 'Player result',
   name: 'playerResult',
   type: 'object',
-  fieldsets: [{
-    name: 'test',
-    columns: 2
-  }],
   fields: [
     {
       name: 'player',
       title: 'Player',
-      fieldset: 'test',
       type: 'reference',
       to: [
         {type: 'player'}
       ]
     },
     {
+      name: 'isWinner',
+      title: 'Winner?',
+      type: 'boolean'
+    },
+    {
       name: 'score',
       type: 'array',
       title: 'Score',
-      fieldset: 'test',
       of: [{type: 'number'}],
       validation: Rule => Rule.max(5)
     }
