@@ -39,12 +39,12 @@ const playerFields = `
 
 const getClient = (preview) => (preview ? previewClient : client)
 
-export async function getPreviewMatchByID(id) {
+export async function getPreviewByID(id) {
   const data = await getClient(true).fetch(
-    `*[_type == "match" && _id == $id] | order(gameStart desc){
-      ${matchFields}
+    `*[_id == $id]{
+      _id
     }`,
-    { slug }
+    { id }
   )
   return data[0]
 }
