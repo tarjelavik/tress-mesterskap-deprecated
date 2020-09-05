@@ -1,3 +1,3 @@
 export default function resolveProductionUrl(document) {
-  return `https://tress-mesterskap.netlify.app/matches/${document._id}`
+  return `https://tress-mesterskap.netlify.app/api/preview/${document._id}`
 }

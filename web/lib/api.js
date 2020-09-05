@@ -1,12 +1,12 @@
 import client, { previewClient } from './sanity'
 
-const getUniqueMatches = (matches) => {
+const getUniqueDocuments = (documents) => {
   const slugs = new Set()
-  return matches.filter((match) => {
-    if (slugs.has(match._id)) {
+  return documents.filter((document) => {
+    if (slugs.has(document._id)) {
       return false
     } else {
-      slugs.add(match._id)
+      slugs.add(document._id)
       return true
     }
   })
@@ -17,11 +17,24 @@ const matchFields = `
   name,
   gameStart,
   results[]{
-    "player": player->name,
+    player->{_id, name},
     score
   },
   description,
   mainRepresentation
+`
+
+const playerFields = `
+  _id,
+  name,
+  "games": *[_type=='match' && references(^._id)]{
+    _id,
+    name,
+    results[]{
+      player, 
+      score
+    }
+  }
 `
 
 const getClient = (preview) => (preview ? previewClient : client)
@@ -41,19 +54,31 @@ export async function getAllMatchesWithID() {
   return data
 }
 
+export async function getAllPlayersWithID() {
+  const data = await client.fetch(`*[_type == "player"]{ 'id': _id }`)
+  return data
+}
+
+export async function getPlayer(id, preview) {
+  const results = await getClient(preview)
+    .fetch(`*[_type == "player" && _id == $id]{
+      ${playerFields}
+    }`, { id })
+  return results
+}
+
 export async function getAllMatchesForHome(preview) {
   const results = await getClient(preview)
     .fetch(`*[_type == "match"] | order(gameStart desc, _updatedAt desc){
       ${matchFields}
     }`)
-  return getUniqueMatches(results)
+  return getUniqueDocuments(results)
 }
 
 export async function getMatchAndMoreMatches(id, preview) {
   const curClient = getClient(preview)
   const [match, moreMatches] = await Promise.all([
-    curClient
-      .fetch(
+    curClient.fetch(
         `*[_type == "match" && _id == $id] | order(_updatedAt desc) {
         ${matchFields}
       }`,
@@ -67,5 +92,5 @@ export async function getMatchAndMoreMatches(id, preview) {
       { id }
     )
   ])
-  return { match, moreMatches: getUniqueMatches(moreMatches) }
+  return { match, moreMatches: getUniqueDocuments(moreMatches) }
 }

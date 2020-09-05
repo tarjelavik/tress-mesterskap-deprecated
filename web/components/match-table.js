@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function MatchTable({ data }) {
   const headers = [
     'Spiller',
@@ -23,7 +25,7 @@ export default function MatchTable({ data }) {
     results.map((result, index) => 
       <tbody>
         <tr key={index}>
-          <td className="border px-4 py-2">{result.player}</td>
+          <td className="border px-4 py-2"><Link as={`/players/${result.player._id}`} href="/players/[result.player._id]"><a>{result.player.name}</a></Link></td>
         {
           result.score.map((round, index) => 
             <td className="border px-4 py-2" key={index}>{round}</td>

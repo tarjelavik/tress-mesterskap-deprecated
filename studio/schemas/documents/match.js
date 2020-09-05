@@ -20,7 +20,7 @@ export default {
     {
       name: 'results',
       type: 'array',
-      of: [{ type: 'playerResult' }],
+      of: [{type: 'playerResult'}],
       options: {
         editModal: 'popover'
       }
