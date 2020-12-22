@@ -3,8 +3,8 @@ export default {
   type: 'document',
   title: 'Match',
   initialValue: () => ({
-    name: 'Tresskamp - ' + (new Date()).toLocaleDateString(),
-    gameStart: (new Date()).toISOString()
+    name: 'Tresskamp - ' + new Date().toLocaleString(),
+    gameStart: new Date().toISOString()
   }),
   fields: [
     {
@@ -14,13 +14,13 @@ export default {
     },
     {
       name: 'gameStart',
-      type: 'date',
+      type: 'datetime',
       title: 'Game start'
     },
     {
       name: 'results',
       type: 'array',
-      of: [{type: 'playerResult'}],
+      of: [{ type: 'playerResult' }],
       options: {
         editModal: 'popover'
       }
@@ -32,6 +32,14 @@ export default {
       description: 'Image of match',
       options: {
         hotspot: true
+      }
+    },
+    {
+      name: 'partOf',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'tournament' }] }],
+      options: {
+        editModal: 'popover'
       }
     },
     {

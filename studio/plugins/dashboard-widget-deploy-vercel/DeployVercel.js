@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import fetch from 'node-fetch'
 // https://github.com/css-modules/css-modules
 import styles from './DeployVercel.css'
 // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-function useInterval (callback, delay) {
+function useInterval(callback, delay) {
   const savedCallback = useRef()
   // Remember the latest callback.
   useEffect(() => {
@@ -11,7 +11,7 @@ function useInterval (callback, delay) {
   }, [callback])
   // Set up the interval.
   useEffect(() => {
-    function tick () {
+    function tick() {
       savedCallback.current()
     }
     if (delay !== null) {
@@ -28,8 +28,8 @@ const DeployVercel = () => {
     // https://vercel.com/docs/api?query=api#endpoints/deployments/list-deployments
     fetch('https://api.vercel.com/v5/now/deployments?limit=5', {
       headers: {
-        Authorization: `Bearer ${process.env.SANITY_STUDIO_VERCEL_TOKEN}`,
-      },
+        Authorization: `Bearer ${process.env.SANITY_STUDIO_VERCEL_TOKEN}`
+      }
     })
       .then(res => res.json())
       .then(json => setDeployments(json.deployments))
@@ -46,7 +46,7 @@ const DeployVercel = () => {
   const deploy = () => {
     setDeploying(true)
     // https://vercel.com/docs/v2/more/deploy-hooks?query=deploy%20hoo#triggering-a-deploy-hook
-    fetch(process.env.SANITY_STUDIO_VERCEL_DEPLOY_HOOK, {method: 'POST'})
+    fetch(process.env.SANITY_STUDIO_VERCEL_DEPLOY_HOOK, { method: 'POST' })
       .then(res => res.json())
       .then(json => {
         setJobId(json.job.id)
@@ -58,17 +58,18 @@ const DeployVercel = () => {
       <header className={styles.header}>
         <h2>Deploy to Vercel</h2>
       </header>
-      <button className={styles.button} type='button' onClick={deploy} disabled={deploying}>
+      <button className={styles.button} type="button" onClick={deploy} disabled={deploying}>
         {deploying ? 'Deploying...' : 'Deploy'}
       </button>
       <ol className={styles.list}>
-        {deployments.map(deployment => (
-          <li key={deployment.uid}>
-            <p>
-              {new Date(deployment.created).toLocaleString()} ({deployment.state})
-            </p>
-          </li>
-        ))}
+        {deployments &&
+          deployments.map(deployment => (
+            <li key={deployment.uid}>
+              <p>
+                {new Date(deployment.created).toLocaleString()} ({deployment.state})
+              </p>
+            </li>
+          ))}
       </ol>
     </div>
   )
