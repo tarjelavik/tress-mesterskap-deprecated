@@ -9,36 +9,35 @@ export default {
       name: 'player',
       title: 'Player',
       type: 'reference',
-      to: [
-        {type: 'player'}
-      ]
+      to: [{type: 'player'}],
     },
     {
       name: 'isWinner',
       title: 'Winner?',
-      type: 'boolean'
+      type: 'boolean',
     },
     {
       name: 'score',
       type: 'array',
       title: 'Score',
       of: [{type: 'number'}],
-      validation: Rule => Rule.max(5)
-    }
+      validation: Rule => Rule.max(5),
+    },
   ],
   preview: {
     select: {
       title: 'player.name',
-      score: 'score'
+      score: 'score',
+      winner: 'isWinner',
     },
-    prepare (selection) {
-      const {title, score} = selection
+    prepare(selection) {
+      const {title, score, winner} = selection
       const scoreString = score.join(', ')
       const scoreTotal = _.sum(score)
       return {
         title: `${scoreString} = ${scoreTotal}`,
-        subtitle: title
+        subtitle: winner === true ? `⭐ ${title}` : `${title}`,
       }
-    }
-  }
+    },
+  },
 }

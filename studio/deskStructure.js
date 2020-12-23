@@ -1,5 +1,5 @@
 import S from '@sanity/desk-tool/structure-builder'
-import { MdDashboard, MdSettings } from 'react-icons/lib/md'
+import {GiMountedKnight, GiCardJoker, GiTabletopPlayers} from 'react-icons/gi'
 
 // We filter document types defined in structure to prevent
 // them from being listed twice
@@ -8,7 +8,7 @@ const hiddenDocTypes = listItem =>
 
 export default () =>
   S.list()
-    .title('Site')
+    .title('Tress')
     .items([
       S.listItem()
         // Give it a title
@@ -21,6 +21,7 @@ export default () =>
               // Add the first list item
               S.listItem()
                 .title('Tournaments')
+                .icon(GiMountedKnight)
                 // This automatically gives it properties from the project type
                 .schemaType('tournament')
                 // When you open this list item, list out the documents
@@ -29,6 +30,7 @@ export default () =>
               // Add a second list item
               S.listItem()
                 .title('Matches')
+                .icon(GiCardJoker)
                 // This automatically gives it properties from the project type
                 .schemaType('match')
                 // When you open this list item, list out the documents
@@ -37,11 +39,12 @@ export default () =>
               // Add a second list item
               S.listItem()
                 .title('Players')
+                .icon(GiTabletopPlayers)
                 .schemaType('player')
                 // When you open this list item, list out the documents
                 // of the type category"
-                .child(S.documentTypeList('player').title('Players'))
-            ])
+                .child(S.documentTypeList('player').title('Players')),
+            ]),
         ),
       S.divider(),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
@@ -51,6 +54,6 @@ export default () =>
         .child(
           S.document()
             .schemaType('siteConfig')
-            .documentId('siteConfig')
-        )
+            .documentId('siteConfig'),
+        ),
     ])

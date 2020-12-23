@@ -4,26 +4,26 @@ export default {
   title: 'Match',
   initialValue: () => ({
     name: 'Tresskamp - ' + new Date().toLocaleString(),
-    gameStart: new Date().toISOString()
+    gameStart: new Date().toISOString(),
   }),
   fields: [
     {
       name: 'name',
       type: 'string',
-      title: 'Name'
+      title: 'Name',
     },
     {
       name: 'gameStart',
       type: 'datetime',
-      title: 'Game start'
+      title: 'Game start',
     },
     {
       name: 'results',
       type: 'array',
-      of: [{ type: 'playerResult' }],
+      of: [{type: 'playerResult'}],
       options: {
-        editModal: 'popover'
-      }
+        editModal: 'fullscreen',
+      },
     },
     {
       name: 'mainRepresentation',
@@ -31,27 +31,27 @@ export default {
       title: 'Image',
       description: 'Image of match',
       options: {
-        hotspot: true
-      }
+        hotspot: true,
+      },
     },
     {
       name: 'partOf',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'tournament' }] }],
+      of: [{type: 'reference', to: [{type: 'tournament'}]}],
       options: {
-        editModal: 'popover'
-      }
+        editModal: 'popover',
+      },
     },
     {
       name: 'description',
       type: 'text',
-      title: 'Description'
-    }
+      title: 'Description',
+    },
   ],
   preview: {
     select: {
       title: 'name',
-      media: 'mainRepresentation'
-    }
-  }
+      media: 'mainRepresentation',
+    },
+  },
 }
