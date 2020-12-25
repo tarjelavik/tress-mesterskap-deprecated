@@ -9,6 +9,7 @@ import Title from "../../components/title";
 import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import AverageScore from "../../components/average-score";
+import PlayerImage from "../../components/player-image";
 
 export default function Player({ player, preview }) {
   const router = useRouter();
@@ -34,7 +35,30 @@ export default function Player({ player, preview }) {
                   {player.name} | {CMS_NAME}
                 </title>
               </Head>
-              <Title>{player.name}</Title>
+              <div class="grid grid-cols-12 gap-4">
+                <div class="w-16 h-16 relative mb-4">
+                  <div class="group w-full h-full rounded-full overflow-hidden shadow-inner text-center bg-purple table cursor-pointer">
+                    {player.mainRepresentation && (
+                      <PlayerImage
+                        slug={player.slug}
+                        title={player.name}
+                        url={player.mainRepresentation}
+                      />
+                    )}
+                    {!player.mainRepresentation && (
+                      <img
+                        src="https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
+                        alt="lovely avatar"
+                        class="object-cover object-center w-full h-full visible group-hover:hidden"
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="col-span-10">
+                  <Title>{player.name}</Title>
+                </div>
+              </div>
+
               <div id="stats" class="max-w-xl px-4 py-4 mx-auto">
                 <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
                   <div class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
