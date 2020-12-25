@@ -27,9 +27,11 @@ const matchFields = `
 const playerFields = `
   _id,
   name,
-  "games": *[_type=='match' && references(^._id)]{
+  mainRepresentation,
+  "games": *[_type=='match' && references(^._id)]| order(gameStart asc) {
     _id,
     name,
+    gameStart,
     results[]{
       player, 
       score
@@ -81,6 +83,14 @@ export async function getAllMatches(preview) {
   const results = await getClient(preview)
     .fetch(`*[_type == "match"] | order(gameStart desc, _updatedAt desc){
       ${matchFields}
+    }`);
+  return getUniqueDocuments(results);
+}
+
+export async function getAllPlayers(preview) {
+  const results = await getClient(preview)
+    .fetch(`*[_type == "player"] | order(name desc){
+      ${playerFields}
     }`);
   return getUniqueDocuments(results);
 }

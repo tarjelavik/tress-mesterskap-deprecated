@@ -4,7 +4,7 @@ import Container from "../../components/container";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 import { getAllMatchesWithID, getMatchAndMoreMatches } from "../../lib/api";
-import PostTitle from "../../components/post-title";
+import Title from "../../components/title";
 import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import Match from "../../components/match";
@@ -19,7 +19,7 @@ export default function SingleMatch({ match, preview }) {
       <Container>
         <Header />
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <Title>Loading…</Title>
         ) : (
           <>
             <article>

@@ -13,6 +13,9 @@ export default {
       type: 'image',
       title: 'Image',
       description: 'Image of player',
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: 'description',
@@ -23,7 +26,7 @@ export default {
   preview: {
     select: {
       title: 'name',
-      media: 'mainRepresentation'
-    }
-  }
+      media: 'mainRepresentation',
+    },
+  },
 }

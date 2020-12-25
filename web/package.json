@@ -12,11 +12,13 @@
     "@sanity/block-content-to-react": "2.0.7",
     "@sanity/client": "1.149.2",
     "@sanity/image-url": "0.140.17",
+    "chart.js": "^2.9.4",
     "classnames": "2.2.6",
     "date-fns": "2.10.0",
     "lodash": "^4.17.20",
     "next": "^10.0.3",
     "react": "^16.14.0",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "^16.14.0"
   },
   "devDependencies": {
