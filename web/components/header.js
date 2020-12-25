@@ -1,12 +1,22 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8">
-      <Link href="/">
-        <a className="hover:underline">Tress-mesterskap</a>
-      </Link>
-      .
-    </h2>
-  )
+    <header>
+      <nav class="flex justify-between w-full p-4">
+        <a href="/">
+          <span class="font-semibold text-xl tracking-tight">
+            Tress-mesterskap
+          </span>
+        </a>
+        <div class="md:items-center md:w-auto flex">
+          <div class="md:flex hidden">
+            <a class="block mr-4" href="/match">
+              Slag
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
 }
