@@ -3,7 +3,7 @@ import ErrorPage from "next/error";
 import Container from "../../components/container";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
-import { getAllMatchesWithID, getMatchAndMoreMatches } from "../../lib/api";
+import { getAllMatchesWithID, getMatch } from "../../lib/api";
 import Title from "../../components/title";
 import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
@@ -38,12 +38,11 @@ export default function SingleMatch({ match, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
-  const data = await getMatchAndMoreMatches(params.id, preview);
+  const data = await getMatch(params.id, preview);
   return {
     props: {
       preview,
-      match: data?.match || null,
-      moreMatches: data?.moreMatches || null,
+      match: data[0] || null,
     },
   };
 }
@@ -54,7 +53,7 @@ export async function getStaticPaths() {
     paths:
       allMatches?.map((match) => ({
         params: {
-          id: match.id,
+          id: match._id,
         },
       })) || [],
     fallback: true,

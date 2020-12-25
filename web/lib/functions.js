@@ -59,8 +59,6 @@ export function getResultScoreSeries(player, games) {
     ],
   };
 
-  console.log(JSON.stringify(data, null, 2));
-
   return data;
 }
 

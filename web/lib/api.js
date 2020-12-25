@@ -52,12 +52,12 @@ export async function getPreviewByID(id) {
 }
 
 export async function getAllMatchesWithID() {
-  const data = await client.fetch(`*[_type == "match"]{ 'id': _id }`);
+  const data = await client.fetch(`*[_type == "match"]`);
   return data;
 }
 
 export async function getAllPlayersWithID() {
-  const data = await client.fetch(`*[_type == "player"]{ 'id': _id }`);
+  const data = await client.fetch(`*[_type == "player"]`);
   return data;
 }
 
@@ -71,9 +71,19 @@ export async function getPlayer(id, preview) {
   return results;
 }
 
+export async function getMatch(id, preview) {
+  const results = await getClient(preview).fetch(
+    `*[_type == "match" && _id == $id]{
+      ${matchFields}
+    }`,
+    { id }
+  );
+  return results;
+}
+
 export async function getAllMatchesForHome(preview) {
   const results = await getClient(preview)
-    .fetch(`*[_type == "match"][0...5] | order(gameStart desc, _updatedAt desc){
+    .fetch(`*[_type == "match"] | order(gameStart desc) [0...5] {
       ${matchFields}
     }`);
   return getUniqueDocuments(results);
@@ -81,7 +91,7 @@ export async function getAllMatchesForHome(preview) {
 
 export async function getAllMatches(preview) {
   const results = await getClient(preview)
-    .fetch(`*[_type == "match"] | order(gameStart desc, _updatedAt desc){
+    .fetch(`*[_type == "match"] | order(gameStart desc){
       ${matchFields}
     }`);
   return getUniqueDocuments(results);
@@ -93,25 +103,4 @@ export async function getAllPlayers(preview) {
       ${playerFields}
     }`);
   return getUniqueDocuments(results);
-}
-
-export async function getMatchAndMoreMatches(id, preview) {
-  const curClient = getClient(preview);
-  const [match, moreMatches] = await Promise.all([
-    curClient
-      .fetch(
-        `*[_type == "match" && _id == $id] | order(_updatedAt desc) {
-        ${matchFields}
-      }`,
-        { id }
-      )
-      .then((res) => res?.[0]),
-    curClient.fetch(
-      `*[_type == "match" && _id != $id] | order(gameStart desc, _updatedAt desc){
-        ${matchFields}
-      }[0...2]`,
-      { id }
-    ),
-  ]);
-  return { match, moreMatches: getUniqueDocuments(moreMatches) };
 }

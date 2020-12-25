@@ -3,7 +3,7 @@ import PortableBlock from "./portable-block";
 import { getAverageScore } from "../lib/functions";
 import PlayerImage from "./player-image";
 
-export default function Player({ player }) {
+export default function PlayerListItem({ player }) {
   return (
     <div class="grid grid-cols-8 gap-4">
       <div class="w-16 h-16 relative mb-4">
@@ -17,11 +17,7 @@ export default function Player({ player }) {
           )}
           {!player.mainRepresentation && (
             <img
-              src={
-                player.mainRepresentation
-                  ? player.mainRepresentation
-                  : "https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
-              }
+              src="https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
               alt="lovely avatar"
               class="object-cover object-center w-full h-full visible group-hover:hidden"
             />
@@ -38,7 +34,7 @@ export default function Player({ player }) {
           {getAverageScore(player._id, player.games)} på {player.games.length}{" "}
           spill
         </span>
-        <PortableBlock content={player.excerpt} />
+        {player.excerpt && <PortableBlock content={player.excerpt} />}
       </div>
     </div>
   );
