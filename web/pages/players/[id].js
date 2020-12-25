@@ -99,10 +99,7 @@ export default function Player({ player, preview }) {
                 </div>
               </div>
               <div class="mb-10">
-                <DynamicComponent
-                  player={player._id}
-                  matches={player.matches}
-                />
+                <DynamicComponent player={player._id} games={player.games} />
               </div>
             </article>
           </>
