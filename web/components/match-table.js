@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MatchTable({ data }) {
   const headers = [
-    "Spiller",
+    "",
     "To tress",
     "En av hver",
     "Tre tress",
@@ -15,7 +15,7 @@ export default function MatchTable({ data }) {
     <thead>
       <tr>
         {headers.map((head, index) => (
-          <th className="px-4 py-2" key={index}>
+          <th className="px-4 py-2 bg-white border-black border-b" key={index}>
             {head}
           </th>
         ))}
@@ -49,8 +49,8 @@ export default function MatchTable({ data }) {
   ));
 
   return (
-    <div className="max-w-2xl">
-      <table className="table-auto">
+    <div className="overflow-x-auto">
+      <table className="table-auto bg-gray-200">
         {headerRow}
         {playerRow}
       </table>

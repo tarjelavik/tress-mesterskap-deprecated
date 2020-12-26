@@ -15,8 +15,8 @@ export default function AllMatches({ allMatches, preview }) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
+        <Header />
         <Container>
-          <Header />
           <Title>Slag</Title>
           <Matches matches={matches} />
         </Container>

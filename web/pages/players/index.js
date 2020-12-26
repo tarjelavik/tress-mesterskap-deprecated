@@ -16,8 +16,8 @@ export default function AllPlayers({ allPlayers, preview }) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
+        <Header />
         <Container>
-          <Header />
           <Title>Spillere</Title>
           <Players players={players} />
         </Container>

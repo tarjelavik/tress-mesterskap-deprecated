@@ -23,8 +23,8 @@ export default function Player({ player, preview }) {
 
   return (
     <Layout preview={preview}>
+      <Header />
       <Container>
-        <Header />
         {router.isFallback ? (
           <Title>Loading…</Title>
         ) : (

@@ -16,8 +16,8 @@ export default function SingleMatch({ match, preview }) {
   }
   return (
     <Layout preview={preview}>
+      <Header />
       <Container>
-        <Header />
         {router.isFallback ? (
           <Title>Loading…</Title>
         ) : (
