@@ -6,12 +6,12 @@ export default function CoverImage({ title, url, slug }) {
   const image = (
     <img
       width={1000}
-      height={1000}
+      height={700}
       alt={`Cover Image for ${title}`}
       className={cn("shadow-small", {
         "hover:shadow-medium transition-shadow duration-200": slug,
       })}
-      src={imageBuilder.image(url).height(1000).width(1000).url()}
+      src={imageBuilder.image(url).height(700).width(1000).url()}
     />
   );
 

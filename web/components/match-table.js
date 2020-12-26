@@ -15,7 +15,7 @@ export default function MatchTable({ data }) {
     <thead>
       <tr>
         {headers.map((head, index) => (
-          <th className="px-4 py-2 bg-white border-black border-b" key={index}>
+          <th className="px-2 py-1 bg-white border-black border-b" key={index}>
             {head}
           </th>
         ))}
@@ -28,7 +28,7 @@ export default function MatchTable({ data }) {
   const playerRow = results.map((result, index) => (
     <tbody>
       <tr key={index}>
-        <td className="border px-4 py-2">
+        <td className="border px-2 sm:py-1">
           <Link
             as={`/players/${result.player._id}`}
             href="/players/[result.player._id]"
@@ -37,11 +37,11 @@ export default function MatchTable({ data }) {
           </Link>
         </td>
         {result.score.map((round, index) => (
-          <td className="border px-4 py-2" key={index}>
+          <td className="border px-2 py-1" key={index}>
             {round}
           </td>
         ))}
-        <td className="border px-4 py-2">
+        <td className="border px-2 py-1">
           {result.score.reduce((a, b) => a + b, 0)}
         </td>
       </tr>

@@ -7,7 +7,7 @@ import PortableBlock from "./portable-block";
 
 export default function Match({ match }) {
   return (
-    <div class="grid md:grid-cols-8 grid-cols-1 gap-4">
+    <div className="grid md:grid-cols-8 grid-cols-1 gap-4">
       <div className="md:col-span-2 col-span-8">
         {match.mainRepresentation && (
           <CoverImage
@@ -18,13 +18,13 @@ export default function Match({ match }) {
         )}
         {!match.mainRepresentation && (
           <img
-            width={600}
-            height={600}
+            width={1000}
+            height={700}
             alt={`Placeholder image`}
             className={cn(
               "shadow-small hover:shadow-medium transition-shadow duration-200"
             )}
-            src="https://generative-placeholders.glitch.me/image?width=600&height=600&style=123"
+            src="https://generative-placeholders.glitch.me/image?width=1000&height=700&style=123"
           />
         )}
       </div>

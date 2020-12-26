@@ -17,8 +17,11 @@ export default function Player({ player, preview }) {
     return <ErrorPage statusCode={404} />;
   }
 
-  const DynamicComponent = dynamic(() =>
+  const DynamicScoreGraph = dynamic(() =>
     import("../../components/score-graph")
+  );
+  const DynamicScorePerRoundGraph = dynamic(() =>
+    import("../../components/score-per-round-graph")
   );
 
   return (
@@ -35,9 +38,9 @@ export default function Player({ player, preview }) {
                   {player.name} | {CMS_NAME}
                 </title>
               </Head>
-              <div class="flex gap-4">
-                <div class="w-16 h-16 relative mb-4">
-                  <div class="group w-full h-full rounded-full overflow-hidden shadow-inner text-center bg-purple table cursor-pointer">
+              <div className="flex gap-4">
+                <div className="w-16 h-16 relative mb-4">
+                  <div className="group w-full h-full rounded-full overflow-hidden shadow-inner text-center bg-purple table cursor-pointer">
                     {player.mainRepresentation && (
                       <PlayerImage
                         slug={player.slug}
@@ -49,7 +52,7 @@ export default function Player({ player, preview }) {
                       <img
                         src="https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
                         alt="lovely avatar"
-                        class="object-cover object-center w-full h-full visible group-hover:hidden"
+                        className="object-cover object-center w-full h-full visible group-hover:hidden"
                       />
                     )}
                   </div>
@@ -59,71 +62,77 @@ export default function Player({ player, preview }) {
                 </div>
               </div>
 
-              <div id="stats" class="max-w-xl px-4 py-4 mx-auto">
-                <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
-                  <div class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
+              <div id="stats" className="max-w-xl px-4 py-4 mx-auto">
+                <div className="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
+                  <div className="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
                     <AverageScore player={player._id} games={player.games} />
                   </div>
 
                   {/* <div
-                    class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0"
+                    className="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0"
                   >
                     <div>
                       <div>
-                        <p class="flex items-center justify-end text-red-500 text-md">
-                          <span class="font-bold">6%</span>
+                        <p className="flex items-center justify-end text-red-500 text-md">
+                          <span className="font-bold">6%</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 fill-current"
+                            className="w-5 h-5 fill-current"
                             viewBox="0 0 24 24"
                           >
                             <path
-                              class="heroicon-ui"
+                              className="heroicon-ui"
                               d="M20 9a1 1 0 012 0v8a1 1 0 01-1 1h-8a1 1 0 010-2h5.59L13 10.41l-3.3 3.3a1 1 0 01-1.4 0l-6-6a1 1 0 011.4-1.42L9 11.6l3.3-3.3a1 1 0 011.4 0l6.3 6.3V9z"
                             />
                           </svg>
                         </p>
                       </div>
-                      <p class="text-3xl font-semibold text-center text-gray-800">
+                      <p className="text-3xl font-semibold text-center text-gray-800">
                         43
                       </p>
-                      <p class="text-lg text-center text-gray-500">
+                      <p className="text-lg text-center text-gray-500">
                         New Tickets
                       </p>
                     </div>
                   </div>
 
                   <div
-                    class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0"
+                    className="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0"
                   >
                     <div>
                       <div>
-                        <p class="flex items-center justify-end text-gray-500 text-md">
-                          <span class="font-bold">0%</span>
+                        <p className="flex items-center justify-end text-gray-500 text-md">
+                          <span className="font-bold">0%</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-5 h-5 fill-current"
+                            className="w-5 h-5 fill-current"
                             viewBox="0 0 24 24"
                           >
                             <path
-                              class="heroicon-ui"
+                              className="heroicon-ui"
                               d="M17 11a1 1 0 010 2H7a1 1 0 010-2h10z"
                             />
                           </svg>
                         </p>
                       </div>
-                      <p class="text-3xl font-semibold text-center text-gray-800">
+                      <p className="text-3xl font-semibold text-center text-gray-800">
                         43
                       </p>
-                      <p class="text-lg text-center text-gray-500">
+                      <p className="text-lg text-center text-gray-500">
                         New Tickets
                       </p>
                     </div>
                   </div> */}
                 </div>
               </div>
-              <div class="mb-10">
-                <DynamicComponent player={player._id} games={player.games} />
+              <div className="mb-10">
+                <DynamicScoreGraph player={player._id} games={player.games} />
+              </div>
+              <div className="mb-10">
+                <DynamicScorePerRoundGraph
+                  player={player._id}
+                  games={player.games}
+                />
               </div>
             </article>
           </>
