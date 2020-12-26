@@ -5,7 +5,7 @@ import PlayerImage from "./player-image";
 
 export default function PlayerListItem({ player }) {
   return (
-    <div class="grid grid-cols-8 gap-4">
+    <div class="flex gap-4">
       <div class="w-16 h-16 relative mb-4">
         <div class="group w-full h-full rounded-full overflow-hidden shadow-inner text-center bg-purple table cursor-pointer">
           {player.mainRepresentation && (

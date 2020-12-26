@@ -15,6 +15,7 @@ export default function Index({ allMatches, preview }) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
+        <Header />
         <Container>
           <Intro />
           <Matches matches={matches} />
