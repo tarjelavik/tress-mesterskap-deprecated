@@ -13,7 +13,7 @@ export default function Header() {
       <nav className="flex items-center flex-wrap bg-yellow-500 p-3 mb-12">
         <a href="/">
           <span className="font-semibold text-xl tracking-tight mr-10">
-            Tress-mesterskap
+            Tressmesterskap
           </span>
         </a>
         <button
