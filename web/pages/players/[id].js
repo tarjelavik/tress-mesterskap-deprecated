@@ -10,6 +10,7 @@ import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import AverageScore from "../../components/average-score";
 import PlayerImage from "../../components/player-image";
+import MatchesWon from "../../components/matchesWon";
 
 export default function Player({ player, preview }) {
   const router = useRouter();
@@ -22,6 +23,9 @@ export default function Player({ player, preview }) {
   );
   const DynamicScorePerRoundGraph = dynamic(() =>
     import("../../components/score-per-round-graph")
+  );
+  const DynamicAccumulatedAverageGraph = dynamic(() =>
+    import("../../components/score-accumulated-average-graph")
   );
 
   return (
@@ -66,6 +70,9 @@ export default function Player({ player, preview }) {
                 <div className="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
                   <div className="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
                     <AverageScore player={player._id} games={player.games} />
+                  </div>
+                  <div className="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
+                    <MatchesWon player={player._id} games={player.games} />
                   </div>
 
                   {/* <div
@@ -125,10 +132,27 @@ export default function Player({ player, preview }) {
                   </div> */}
                 </div>
               </div>
-              <div className="mb-10">
-                <DynamicScoreGraph player={player._id} games={player.games} />
+              <div className="grid grid-cols-2 gap-5">
+                <div className="my-10">
+                  <h1 className="text-2xl font-bold text-center">
+                    Resultat per spill
+                  </h1>
+                  <DynamicScoreGraph player={player._id} games={player.games} />
+                </div>
+                <div className="my-10">
+                  <h1 className="text-2xl font-bold text-center">
+                    Utvikling av gjennomsnittet
+                  </h1>
+                  <DynamicAccumulatedAverageGraph
+                    player={player._id}
+                    games={player.games}
+                  />
+                </div>
               </div>
-              <div className="mb-10">
+              <div className="my-10">
+                <h1 className="text-2xl font-bold text-center">
+                  Resultat per runde
+                </h1>
                 <DynamicScorePerRoundGraph
                   player={player._id}
                   games={player.games}

@@ -1,11 +1,47 @@
 import { parseISO, format } from "date-fns";
 const _ = require("lodash");
 
+export function getMatchesWon(player, games) {
+  let results = games.map((game) => {
+    return game.results;
+  });
+
+  const count = _.flattenDeep(results).filter(
+    (score) => score.player._ref == player && score.isWinner
+  );
+  console.log(count);
+  return count.length;
+}
+
 export function getPlayerAverageScore(player, games) {
   const playerResults = getPlayerResults(player, games);
   const gamesPlayed = playerResults.length;
   const totaltSum = _.sum(_.flattenDeep(playerResults));
   return Math.round(totaltSum / gamesPlayed);
+}
+
+export function getResultScoreAccumulatedAverageSeries(player, games) {
+  const playerResults = getPlayerResults(player, games);
+  const labels = games.map((game) => toDate(game.gameStart));
+  const gamesPlayed = playerResults.length;
+  const averagePerRound = playerResults.map((r) => _.sum(_.flattenDeep(r)));
+  const accumulatedAverage = [];
+  let acc = 0;
+  for (let i = 0; i < gamesPlayed; i++) {
+    acc = acc + averagePerRound[i];
+    accumulatedAverage.push(Math.round(acc / (i + 1)));
+  }
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: player,
+        ...graphDefault,
+        data: accumulatedAverage,
+      },
+    ],
+  };
+  return data;
 }
 
 export function getResultScoreSeries(player, games) {
@@ -73,13 +109,12 @@ export function getResultScorePerRoundSeries(player, games) {
       }),
     ],
   };
-  console.log(JSON.stringify(data, null, 2));
   return data;
 }
 
 function toDate(date) {
   const parsedDate = parseISO(date);
-  return format(parsedDate, "LLLL	d, yyyy");
+  return format(parsedDate, "dd.L.yyyy");
 }
 
 function getPlayerResults(player, games) {

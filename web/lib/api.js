@@ -18,6 +18,7 @@ const matchFields = `
   gameStart,
   results[]{
     player->{_id, name},
+    isWinner,
     score
   },
   description,
@@ -34,6 +35,7 @@ const playerFields = `
     gameStart,
     results[]{
       player, 
+      isWinner,
       score
     }
   }
