@@ -1,16 +1,24 @@
 import { parseISO, format } from "date-fns";
 const _ = require("lodash");
 
-export function getMatchesWon(player, games) {
+export function getWinsAndExpected(player, games) {
   let results = games.map((game) => {
     return game.results;
   });
 
-  const count = _.flattenDeep(results).filter(
-    (score) => score.player._ref == player && score.isWinner
+  const played = _.flattenDeep(results).filter(
+    (score) => score.player._ref == player
   );
-  console.log(count);
-  return count.length;
+  const won = played.filter((score) => score.isWinner);
+
+  const expectedWins =
+    Math.pow(won.length, 1) /
+    (Math.pow(won.length, 1) + Math.pow(played.length, 1));
+
+  return {
+    wins: won.length,
+    expectedWins: Math.round(expectedWins * 100) / 100,
+  };
 }
 
 export function getPlayerAverageScore(player, games) {
