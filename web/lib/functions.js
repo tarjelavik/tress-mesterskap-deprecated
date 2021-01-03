@@ -1,6 +1,23 @@
 import { parseISO, format } from "date-fns";
 const _ = require("lodash");
 
+export function getLeaderboard(data) {
+  const leaderboard = data.map((player) => {
+    return {
+      name: player.name,
+      image: player.mainRepresentation,
+      accumulatedAverages: getResultScoreAccumulatedAverageSeries(
+        player._id,
+        player.games
+      ),
+      average: getPlayerAverageScore(player._id, player.games),
+      played: player.games.length,
+    };
+  });
+
+  return _.sortBy(leaderboard, ["average", "name"]);
+}
+
 export function getWinsAndExpected(player, games) {
   let results = games.map((game) => {
     return game.results;
@@ -68,6 +85,7 @@ export function getResultScoreSeries(player, games) {
   };
   return data;
 }
+
 export function getResultScorePerRoundSeries(player, games) {
   const playerResults = getPlayerResults(player, games);
   const labels = games.map((game) => toDate(game.gameStart));

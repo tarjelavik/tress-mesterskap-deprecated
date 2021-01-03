@@ -15,8 +15,20 @@ export default function MatchTable({ data }) {
     <thead>
       <tr>
         {headers.map((head, index) => (
-          <th className="px-2 py-1 bg-white border-black border-b" key={index}>
-            {head}
+          <th
+            style={{ verticalAlign: "bottom" }}
+            className="px-2 py-1 bg-white border-green-500 border-b"
+            key={index}
+          >
+            <div
+              style={{
+                textOrientation: "mixed",
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+              }}
+            >
+              {head}
+            </div>
           </th>
         ))}
       </tr>
@@ -26,33 +38,32 @@ export default function MatchTable({ data }) {
   const results = data;
 
   const playerRow = results.map((result, index) => (
-    <tbody>
-      <tr key={index}>
-        <td className="border px-2 sm:py-1">
-          <Link
-            as={`/players/${result.player._id}`}
-            href="/players/[result.player._id]"
-          >
-            <a>{result.player.name}</a>
-          </Link>
+    <tr key={index}>
+      <td className="border px-2 sm:py-1">
+        <Link
+          as={`/players/${result.player._id}`}
+          href="/players/[result.player._id]"
+        >
+          <a>{result.player.name}</a>
+        </Link>
+        {result.isWinner ? " ⭐" : ""}
+      </td>
+      {result.score.map((round, index) => (
+        <td className="border px-2 py-1" key={index}>
+          {round}
         </td>
-        {result.score.map((round, index) => (
-          <td className="border px-2 py-1" key={index}>
-            {round}
-          </td>
-        ))}
-        <td className="border px-2 py-1">
-          {result.score.reduce((a, b) => a + b, 0)}
-        </td>
-      </tr>
-    </tbody>
+      ))}
+      <td className="border px-2 py-1">
+        {result.score.reduce((a, b) => a + b, 0)}
+      </td>
+    </tr>
   ));
 
   return (
     <div className="overflow-x-auto">
-      <table className="table-auto bg-gray-200">
+      <table className="table-auto bg-green-100">
         {headerRow}
-        {playerRow}
+        <tbody>{playerRow}</tbody>
       </table>
     </div>
   );
