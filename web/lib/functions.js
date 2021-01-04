@@ -4,6 +4,7 @@ const _ = require("lodash");
 export function getLeaderboard(data) {
   const leaderboard = data.map((player) => {
     return {
+      _id: player._id,
       name: player.name,
       image: player.mainRepresentation,
       accumulatedAverages: getResultScoreAccumulatedAverageSeries(
