@@ -12,6 +12,7 @@ export function getLeaderboard(data) {
         player.games
       ),
       average: getPlayerAverageScore(player._id, player.games),
+      ...getWinsAndExpected(player._id, player.games),
       played: player.games.length,
     };
   });
