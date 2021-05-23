@@ -13,7 +13,7 @@ import { orderBy } from "lodash";
 export default function Leaderboard({ leaderboard, preview }) {
   let data = getLeaderboard(leaderboard);
   data = orderBy(data, ["expectedWins"], ["desc"]);
-  console.log(data);
+
   const DynamicScoreAccumulatedAverageGraphListView = dynamic(() =>
     import("../../components/score-accumulated-average-graph-list-view")
   );
@@ -27,7 +27,7 @@ export default function Leaderboard({ leaderboard, preview }) {
         <Header />
         <Container>
           <Title>Resultatliste</Title>
-          <div className="grid grid-cols-5 gap-4 auto-cols-min">
+          <div className="grid grid-cols-5 gap-4 auto-cols-min mb-10">
             <div></div>
             <div></div>
             <div>Seirer</div>
