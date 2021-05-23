@@ -13,7 +13,7 @@ import { orderBy } from "lodash";
 export default function Leaderboard({ leaderboard, preview }) {
   let data = getLeaderboard(leaderboard);
   data = orderBy(data, ["expectedWins"], ["desc"]);
-
+  console.log(data);
   const DynamicScoreAccumulatedAverageGraphListView = dynamic(() =>
     import("../../components/score-accumulated-average-graph-list-view")
   );
@@ -33,28 +33,28 @@ export default function Leaderboard({ leaderboard, preview }) {
             <div>Seirer</div>
             <div>Forventet</div>
             <div>Gj.snitt</div>
-            {data.map((list, index) => (
+            {data.map((player, index) => (
               <>
                 <div className="text-2xl md:text-4xl text-orange-400 font-bold mr-5 self-center">
                   {index + 1}
                 </div>
                 <div className="text-2xl text-purple-700 md:text-4xl font-semibold self-center">
-                  <Link as={`/players/${list._id}`} href="/players/[slug]">
-                    {list.name}
+                  <Link as={`/players/${player._id}`} href="/players/[slug]">
+                    {player.name}
                   </Link>
                 </div>
                 <div className="text-2xl px-5 md:text-4xl self-center">
-                  {list.wins}
+                  {player.wins} / {player.played}
                 </div>
                 <div className="text-2xl px-5 md:text-4xl self-center">
-                  {list.expectedWins}
+                  {player.expectedWins}
                 </div>
                 <div className="text-2xl px-5 md:text-4xl self-center">
-                  {list.average}
+                  {player.average}
                 </div>
                 {/* <div className="md:block px-2 w-1/2">
-                <DynamicScoreAccumulatedAverageGraphListView
-                  data={list.accumulatedAverages}
+                <DynamicScoreAccumulatedAverageGraphplayerView
+                  data={player.accumulatedAverages}
                 />
               </div> */}
               </>

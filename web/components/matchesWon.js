@@ -11,8 +11,8 @@ export default function MatchesWon({ player, games }) {
       <p className="text-lg text-center text-gray-500">
         av {games.length} slag
       </p>
-      <p class="text-center text-green-500 text-sm">
-        <span class="font-bold">Forventet: {data.expectedWins}</span>
+      <p className="text-center text-green-500 text-sm">
+        <span className="font-bold">Forventet: {data.expectedWins}</span>
       </p>
     </div>
   );
