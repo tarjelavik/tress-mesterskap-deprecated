@@ -7,7 +7,7 @@ import PortableBlock from "./portable-block";
 
 export default function Match({ match }) {
   return (
-    <div className="grid md:grid-cols-8 grid-cols-1 gap-4">
+    <div className="grid md:grid-cols-8 grid-cols-1 gap-4 mb-16">
       <div className="md:col-span-2 col-span-8">
         {match.mainRepresentation && (
           <CoverImage
