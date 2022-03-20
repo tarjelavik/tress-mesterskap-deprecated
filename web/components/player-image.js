@@ -1,6 +1,6 @@
 import cn from "classnames";
 import Link from "next/link";
-import { imageBuilder } from "../lib/sanity";
+import { urlFor } from "../lib/sanity";
 
 export default function PlayerImage({ title, url, slug }) {
   const image = (
@@ -11,7 +11,7 @@ export default function PlayerImage({ title, url, slug }) {
       className={cn("shadow-small", {
         "hover:shadow-medium transition-shadow duration-200": slug,
       })}
-      src={imageBuilder.image(url).height(400).width(400).url()}
+      src={urlFor(url).height(400).width(400).url()}
     />
   );
 

@@ -9,6 +9,11 @@ export default function Match({ match }) {
   return (
     <div className="grid md:grid-cols-8 grid-cols-1 gap-4 mb-16">
       <div className="md:col-span-2 col-span-8">
+        <h3 className="text-2xl mb-3 leading-snug">
+          <Link as={`/match/${match._id}`} href="/match/[slug]">
+            <a className="hover:underline"><Date dateString={match.gameStart} /></a>
+          </Link>
+        </h3>
         {match.mainRepresentation && (
           <CoverImage
             slug={match.slug}
@@ -27,16 +32,11 @@ export default function Match({ match }) {
             src="https://generative-placeholders.glitch.me/image?width=1000&height=700&style=123"
           />
         )}
+        {/* <div className="text-lg mb-4">
+          <Date dateString={match.gameStart} />
+        </div> */}
       </div>
       <div className="md:col-span-6 col-span-8">
-        <h3 className="text-3xl mb-3 leading-snug">
-          <Link as={`/match/${match._id}`} href="/match/[slug]">
-            <a className="hover:underline">{match.name}</a>
-          </Link>
-        </h3>
-        <div className="text-lg mb-4">
-          <Date dateString={match.gameStart} />
-        </div>
         {match.results && <MatchTable data={match.results} />}
         {match.excerpt && <PortableBlock content={match.excerpt} />}
       </div>

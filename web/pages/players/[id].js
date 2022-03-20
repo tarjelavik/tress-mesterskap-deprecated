@@ -53,11 +53,7 @@ export default function Player({ player, preview }) {
                       />
                     )}
                     {!player.mainRepresentation && (
-                      <img
-                        src="https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
-                        alt="lovely avatar"
-                        className="object-cover object-center w-full h-full visible group-hover:hidden"
-                      />
+                      <div style={{ backgroundColor: '#ccc', width: '100%', height: '100%' }}></div>
                     )}
                   </div>
                 </div>

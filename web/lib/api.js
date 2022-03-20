@@ -1,4 +1,4 @@
-import client, { previewClient } from "./sanity";
+import { getClient } from './sanity.server'
 
 const getUniqueDocuments = (documents) => {
   const slugs = new Set();
@@ -41,7 +41,6 @@ const playerFields = `
   }
 `;
 
-const getClient = (preview) => (preview ? previewClient : client);
 
 export async function getPreviewByID(id) {
   const data = await getClient(true).fetch(
@@ -53,13 +52,13 @@ export async function getPreviewByID(id) {
   return data[0];
 }
 
-export async function getAllMatchesWithID() {
-  const data = await client.fetch(`*[_type == "match"]`);
+export async function getAllMatchesWithID(preview) {
+  const data = await getClient(preview).fetch(`*[_type == "match"]`);
   return data;
 }
 
-export async function getAllPlayersWithID() {
-  const data = await client.fetch(`*[_type == "player"]`);
+export async function getAllPlayersWithID(preview) {
+  const data = await getClient(preview).fetch(`*[_type == "player"]`);
   return data;
 }
 

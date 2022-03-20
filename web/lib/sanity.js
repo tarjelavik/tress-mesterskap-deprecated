@@ -1,24 +1,15 @@
-import sanityClient from '@sanity/client'
-import sanityImage from '@sanity/image-url'
+import { createPreviewSubscriptionHook, createCurrentUserHook } from 'next-sanity'
+import createImageUrlBuilder from '@sanity/image-url'
+import { config } from './config'
 
-const options = {
-  // Find your project ID and dataset in `sanity.json` in your studio project
-  dataset: 'production',
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  useCdn: process.env.NODE_ENV === 'production',
-  // useCdn == true gives fast, cheap responses using a globally distributed cache.
-  // Set this to false if your application require the freshest possible
-  // data always (potentially slightly slower and a bit more expensive).
-}
+/**
+ * Set up a helper function for generating Image URLs with only the asset reference data in your documents.
+ * Read more: https://www.sanity.io/docs/image-url
+ **/
+export const urlFor = (source) => createImageUrlBuilder(config).image(source)
 
-const client = sanityClient(options)
+// Set up the live preview subscription hook
+export const usePreviewSubscription = createPreviewSubscriptionHook(config)
 
-export const imageBuilder = sanityImage(client)
-
-export const previewClient = sanityClient({
-  ...options,
-  useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
-})
-
-export default client
+// Helper function for using the current logged in user account
+export const useCurrentUser = createCurrentUserHook(config)

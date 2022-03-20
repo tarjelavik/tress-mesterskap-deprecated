@@ -9,6 +9,7 @@ import Header from "../../components/header";
 import Title from "../../components/title";
 import { getLeaderboard } from "../../lib/functions";
 import { orderBy } from "lodash";
+import React from 'react';
 
 export default function Leaderboard({ leaderboard, preview }) {
   let data = getLeaderboard(leaderboard);
@@ -30,26 +31,26 @@ export default function Leaderboard({ leaderboard, preview }) {
           <div className="grid grid-cols-5 gap-4 auto-cols-min mb-10">
             <div></div>
             <div></div>
-            <div>Seirer</div>
-            <div>Forventet</div>
-            <div>Gj.snitt</div>
+            <div className="self-center">Seirer</div>
+            <div className="self-center">Forventet</div>
+            <div className="self-center">Gj.snitt</div>
             {data.map((player, index) => (
-              <>
-                <div className="text-2xl md:text-4xl text-orange-400 font-bold mr-5 self-center">
+              <React.Fragment key={player._id}>
+                <div className="font-bold mr-5 self-center">
                   {index + 1}
                 </div>
-                <div className="text-2xl text-purple-700 md:text-4xl font-semibold self-center">
+                <div className="font-semibold self-center">
                   <Link as={`/players/${player._id}`} href="/players/[slug]">
                     {player.name}
                   </Link>
                 </div>
-                <div className="text-2xl px-5 md:text-4xl self-center">
+                <div className="px-5 self-center">
                   {player.wins} / {player.played}
                 </div>
-                <div className="text-2xl px-5 md:text-4xl self-center">
+                <div className="px-5 self-center">
                   {player.expectedWins}
                 </div>
-                <div className="text-2xl px-5 md:text-4xl self-center">
+                <div className="px-5 self-center">
                   {player.average}
                 </div>
                 {/* <div className="md:block px-2 w-1/2">
@@ -57,7 +58,7 @@ export default function Leaderboard({ leaderboard, preview }) {
                   data={player.accumulatedAverages}
                 />
               </div> */}
-              </>
+              </React.Fragment>
             ))}
           </div>
         </Container>

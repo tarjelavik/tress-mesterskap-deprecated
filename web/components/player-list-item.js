@@ -15,13 +15,6 @@ export default function PlayerListItem({ player }) {
               url={player.mainRepresentation}
             />
           )}
-          {!player.mainRepresentation && (
-            <img
-              src="https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png"
-              alt="lovely avatar"
-              className="object-cover object-center w-full h-full visible group-hover:hidden"
-            />
-          )}
         </div>
       </div>
       <div className="col-span-6 ml-2">
