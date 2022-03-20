@@ -19,7 +19,8 @@
     "@ssfbank/sanity-plugin-byo-table",
     "@sanity/production-preview",
     "dashboard-widget-deploy-vercel",
-    "@sanity/vision"
+    "@sanity/vision",
+    "documents-pane"
   ],
   "parts": [
     {

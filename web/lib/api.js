@@ -25,6 +25,17 @@ const matchFields = `
   mainRepresentation
 `;
 
+const tournamentFields = `
+  _id,
+  name,
+  gameStart,
+  "matches": *[_type == 'match' && references(^._id)]{
+    ${matchFields}
+  },
+  description,
+  mainRepresentation
+`;
+
 const playerFields = `
   _id,
   name,
@@ -79,7 +90,6 @@ export async function getMatch(id, preview) {
     }`,
     { id }
   );
-  console.log(JSON.stringify(results, null, 2))
   return results;
 }
 
@@ -95,6 +105,14 @@ export async function getAllMatches(preview) {
   const results = await getClient(preview)
     .fetch(`*[_type == "match"] | order(gameStart desc){
       ${matchFields}
+    }`);
+  return getUniqueDocuments(results);
+}
+
+export async function getAllTournaments(preview) {
+  const results = await getClient(preview)
+    .fetch(`*[_type == "tournament"] | order(gameStart desc){
+      ${tournamentFields}
     }`);
   return getUniqueDocuments(results);
 }

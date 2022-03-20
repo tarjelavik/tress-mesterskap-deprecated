@@ -1,10 +1,28 @@
 import S from '@sanity/desk-tool/structure-builder'
-import {GiMountedKnight, GiCardJoker, GiTabletopPlayers} from 'react-icons/gi'
+import DocumentsPane from 'sanity-plugin-documents-pane'
+import { GiMountedKnight, GiCardJoker, GiTabletopPlayers } from 'react-icons/gi'
 
 // We filter document types defined in structure to prevent
 // them from being listed twice
 const hiddenDocTypes = listItem =>
   !['match', 'tournament', 'tressResults', 'player', 'siteConfig'].includes(listItem.getId())
+
+export const getDefaultDocumentNode = () => {
+  // Return all documents with just 1 view: the form
+  return S.document().views([
+    S.view.form(),
+    S.view
+      .component(DocumentsPane)
+      .options({
+        query: `*[!(_id in path("drafts.**")) && references($id)]`,
+        params: { id: `_id` },
+        useDraft: false,
+        debug: true,
+      })
+      .title('Incoming References')
+  ])
+}
+
 
 export default () =>
   S.list()
