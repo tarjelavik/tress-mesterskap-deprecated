@@ -28,29 +28,32 @@ export default function Leaderboard({ leaderboard, preview }) {
         <Header />
         <Container>
           <Title>Resultatliste</Title>
-          <div className="grid grid-cols-5 gap-4 auto-cols-min mb-10">
-            <div></div>
-            <div></div>
-            <div className="self-center">Seirer</div>
-            <div className="self-center">Forventet</div>
-            <div className="self-center">Gj.snitt</div>
+          <div className="grid grid-cols-12 gap-4 auto-cols-min mb-10">
+            <div>#</div>
+            <div className="col-span-5">Spiller</div>
+            <div className="col-span-2 self-center">Vunnet</div>
+            <div className="col-span-2 self-center">Forventet</div>
+            <div className="col-span-2 self-center">Gj.snitt</div>
             {data.map((player, index) => (
               <React.Fragment key={player._id}>
                 <div className="font-bold mr-5 self-center">
                   {index + 1}
                 </div>
-                <div className="font-semibold self-center">
+                <div className="col-span-5 font-semibold self-center">
                   <Link as={`/players/${player._id}`} href="/players/[slug]">
                     {player.name}
                   </Link>
+                  {index === 0 && (
+                    " ⭐"
+                  )}
                 </div>
-                <div className="px-5 self-center">
+                <div className="col-span-2 self-center">
                   {player.wins} / {player.played}
                 </div>
-                <div className="px-5 self-center">
+                <div className="col-span-2 self-center">
                   {player.expectedWins}
                 </div>
-                <div className="px-5 self-center">
+                <div className="col-span-2 self-center">
                   {player.average}
                 </div>
                 {/* <div className="md:block px-2 w-1/2">

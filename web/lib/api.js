@@ -17,7 +17,7 @@ const matchFields = `
   name,
   gameStart,
   results[]{
-    player->{_id, name},
+    player->{_id, name, mainRepresentation},
     isWinner,
     score
   },
@@ -79,6 +79,7 @@ export async function getMatch(id, preview) {
     }`,
     { id }
   );
+  console.log(JSON.stringify(results, null, 2))
   return results;
 }
 

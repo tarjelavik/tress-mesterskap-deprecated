@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="flex items-center flex-wrap border-bottom-1 p-3">
+      <nav className="flex items-center flex-wrap border-b border-slate-100 p-3">
         <a href="/">
           <span className="font-semibold text-xl tracking-tight mr-10">
             VM i Tress
@@ -38,19 +38,19 @@ export default function Header() {
 
         <div
           className={`${active ? "" : "hidden"
-            }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
+            }   w-full lg:inline-flex lg:flex-grow lg:w-auto lg:gap-x-2`}
         >
-          <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
+          <div className="lg:inline-flex lg:w-auto w-full lg: py-2 rounded items-center justify-center">
             <a className="block" href="/leaderboard">
               Resultatliste
             </a>
           </div>
-          {/* <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
+          {/* <div className="lg:inline-flex lg:w-auto w-full py-2 rounded items-center justify-center">
             <a className="block" href="/players">
               Spillere
             </a>
           </div> */}
-          <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
+          <div className="lg:inline-flex lg:w-auto w-full py-2 rounded items-center justify-center">
             <a className="block" href="/match">
               Slag
             </a>
