@@ -1,8 +1,13 @@
 import Link from "next/link";
+import { useBreakpoint } from "../lib/hooks/tailwind";
+import initials from 'initials';
 import { GiCard5Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs, GiCard5Diamonds, GiCard5Hearts, GiCard9Clubs, GiCard9Diamonds, GiCard9Hearts, GiCard3Spades, GiCard3Diamonds, GiCard3Clubs, GiCard4Diamonds, GiCard6Diamonds, GiCard7Diamonds } from 'react-icons/gi'
+import { urlFor } from '../lib/sanity';
 
 export default function MatchTable({ data }) {
-  const iconsSize = '24px'
+  const isTablet = useBreakpoint("lg");
+  const isOverMini = useBreakpoint("sm");
+  const iconsSize = '22px'
   const headers = [
     "",
     <div>
@@ -94,15 +99,7 @@ export default function MatchTable({ data }) {
             className="px-2 py-1 bg-white border-gray-500 border-b"
             key={index}
           >
-            <div
-              style={{
-                /* textOrientation: "mixed",
-                writingMode: "vertical-rl",
-                transform: "rotate(180deg)", */
-              }}
-            >
-              {head}
-            </div>
+            {head}
           </th>
         ))}
       </tr>
@@ -114,13 +111,24 @@ export default function MatchTable({ data }) {
   const playerColumn = results.map((result) => (
     <tr key={result.player._id}>
       <td className="border px-2 sm:py-1">
-        <Link
-          as={`/players/${result.player._id}`}
-          href="/players/[result.player._id]"
-        >
-          <a>{result.player.name}</a>
-        </Link>
-        {result.isWinner ? " ⭐" : ""}
+        <div className="flex flex-row gap-x-1 flex-nowrap">
+
+          {result?.player?.mainRepresentation && isOverMini && (
+            <img
+              alt=""
+              className="rounded-full object-contain"
+              src={urlFor(result.player.mainRepresentation).height(25).width(25).url()}
+            />
+          )}
+          <Link
+            href={`/players/${result.player._id}`}
+          >
+            <>
+              {isTablet ? result.player.name : initials(result.player.name)}
+              {result.isWinner ? " ⭐" : ""}
+            </>
+          </Link>
+        </div>
       </td>
       {result.score.map((round, index) => (
         <td className="border px-2 py-1" key={index}>
@@ -135,7 +143,7 @@ export default function MatchTable({ data }) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="table-auto bg-gray-100">
+      <table className="table-auto bg-gray-100 w-full">
         {headerRow}
         <tbody>{playerColumn}</tbody>
       </table>
