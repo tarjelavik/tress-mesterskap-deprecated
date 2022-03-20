@@ -10,15 +10,15 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="flex items-center flex-wrap bg-yellow-300 p-3">
+      <nav className="flex items-center flex-wrap border-bottom-1 p-3">
         <a href="/">
-          <span className="font-semibold text-xl text-blue-500 tracking-tight mr-10">
-            Tressmesterskap
+          <span className="font-semibold text-xl tracking-tight mr-10">
+            VM i Tress
           </span>
         </a>
         <button
           onClick={handleClick}
-          className="focus:outline-none inline-flex p-2 hover:bg-blue-300 rounded lg:hidden ml-auto text-blue-700 hover:text-blue-100 outline-none"
+          className="focus:outline-none inline-flex p-2 rounded lg:hidden ml-auto outline-none"
         >
           <svg
             className="w-6 h-6"
@@ -37,21 +37,20 @@ export default function Header() {
         </button>
 
         <div
-          className={`${
-            active ? "" : "hidden"
-          }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
+          className={`${active ? "" : "hidden"
+            }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
-          <div className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-pink-500 font-bold items-center justify-center hover:bg-yellow-400 hover:text-white">
+          <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
             <a className="block" href="/leaderboard">
               Resultatliste
             </a>
           </div>
-          {/* <div className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-pink-500 font-bold items-center justify-center hover:bg-yellow-400 hover:text-white">
+          {/* <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
             <a className="block" href="/players">
               Spillere
             </a>
           </div> */}
-          <div className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-pink-500 font-bold items-center justify-center hover:bg-yellow-400 hover:text-white">
+          <div className="lg:inline-flex lg:w-auto w-full py-2 rounded font-bold items-center justify-center">
             <a className="block" href="/match">
               Slag
             </a>
