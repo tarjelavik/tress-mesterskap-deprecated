@@ -29,7 +29,7 @@ const tournamentFields = `
   _id,
   name,
   gameStart,
-  "matches": *[_type == 'match' && references(^._id)]{
+  "matches": *[_type == 'match' && references(^._id)]| order(gameStart asc) {
     ${matchFields}
   },
   description,
