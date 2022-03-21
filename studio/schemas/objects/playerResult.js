@@ -9,7 +9,7 @@ export default {
       name: 'player',
       title: 'Player',
       type: 'reference',
-      to: [{type: 'player'}],
+      to: [{ type: 'player' }],
     },
     {
       name: 'isWinner',
@@ -20,7 +20,8 @@ export default {
       name: 'score',
       type: 'array',
       title: 'Score',
-      of: [{type: 'number'}],
+      initialValue: [0, 0, 0, 0, 0],
+      of: [{ type: 'number' }],
       validation: Rule => Rule.max(5),
     },
   ],
@@ -31,7 +32,7 @@ export default {
       winner: 'isWinner',
     },
     prepare(selection) {
-      const {title, score, winner} = selection
+      const { title, score, winner } = selection
       const scoreString = score.join(', ')
       const scoreTotal = _.sum(score)
       return {
