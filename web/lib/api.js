@@ -124,3 +124,43 @@ export async function getAllPlayers(preview) {
     }`);
   return getUniqueDocuments(results);
 }
+
+export async function getAllPlayersByYear(year, preview) {
+  const yearStart = new Date(year, 1, 1)
+  const yearEnd = new Date(year, 12, 31)
+  const results = await getClient(preview)
+    .fetch(`*[_type == "player"] | order(name desc){
+      _id,
+      name,
+      mainRepresentation,
+      "games": *[_type=='match' && (gameStart >= $yearStart && gameStart < $yearEnd) && references(^._id)]| order(gameStart asc) {
+        _id,
+        name,
+        gameStart,
+        results[]{
+          player, 
+          isWinner,
+          score
+        }
+      }
+    }`, { yearStart, yearEnd });
+  return getUniqueDocuments(results);
+}
+
+export async function getMatchesByYear(preview) {
+  const years = await getClient(preview)
+    .fetch(`*[_type == "match"]{
+      gameStart
+    }`);
+
+  const results = years.reduce((acc, curr) => {
+    let year = (new Date(curr.gameStart)).getFullYear().toString()
+
+    if (!acc.includes(year)) {
+      return [...acc, year];
+    }
+    return acc
+  }, [])
+
+  return results;
+}

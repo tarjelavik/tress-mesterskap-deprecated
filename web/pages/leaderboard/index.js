@@ -1,17 +1,17 @@
+import React from 'react';
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Container from "../../components/container";
 import Layout from "../../components/layout";
-import { getAllPlayers } from "../../lib/api";
+import { getAllPlayers, getMatchesByYear } from "../../lib/api";
 import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import Header from "../../components/header";
 import Title from "../../components/title";
 import { getLeaderboard } from "../../lib/functions";
 import { orderBy } from "lodash";
-import React from 'react';
 
-export default function Leaderboard({ leaderboard, preview }) {
+export default function Leaderboard({ years, leaderboard, preview }) {
   let data = getLeaderboard(leaderboard);
   data = orderBy(data, ["expectedWins"], ["desc"]);
 
@@ -28,6 +28,12 @@ export default function Leaderboard({ leaderboard, preview }) {
         <Header />
         <Container>
           <Title>Resultatliste</Title>
+          <div className='flex gap-4 mb-10'>
+            {years ? years.map(year => (
+              <div className='px-2 py-1 bg-emerald-800 text-white font-bolder text-2xl'><Link href={`/leaderboard/${year}`}>{year}</Link></div>
+            )) : null}
+          </div>
+
           <div className="grid grid-cols-12 gap-4 auto-cols-min mb-10">
             <div>#</div>
             <div className="col-span-5">Spiller</div>
@@ -72,7 +78,8 @@ export default function Leaderboard({ leaderboard, preview }) {
 
 export async function getStaticProps({ preview = false }) {
   const leaderboard = await getAllPlayers(preview);
+  const years = await getMatchesByYear();
   return {
-    props: { leaderboard, preview },
+    props: { years, leaderboard, preview },
   };
 }
