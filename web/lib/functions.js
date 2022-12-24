@@ -2,6 +2,7 @@ import { parseISO, format } from "date-fns";
 const _ = require("lodash");
 
 export function getLeaderboard(data) {
+  if (!data) return null
   const leaderboard = data.filter(p => p.games.length > 0).map((player) => {
     return {
       _id: player._id,

@@ -23,8 +23,8 @@ export default function LeaderByYear({ year, leaderboard, preview }) {
 
   let data = getLeaderboard(leaderboard);
   data = orderBy(data, ["expectedWins"], ["desc"]);
-  const thisYear = new Date().getFullYear()
-  const isSeasonOver = thisYear > Number.parseInt(year)
+
+  const isSeasonOver = new Date().getFullYear() > Number.parseInt(year)
 
   return (
     <>
