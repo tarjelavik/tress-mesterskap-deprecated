@@ -132,7 +132,9 @@ export default function MatchTable({ data }) {
       </td>
       {result.score.map((round, index) => (
         <td className="border px-2 py-1" key={index}>
-          {round >= 90 ? `${round} 🔥` : round}
+          {round >= 90 ? `${round} 🔥` : ''}
+          {round === 0 ? `${round} 💎` : ''}
+          {round !== 0 && round < 90 ? `${round}` : ''}
         </td>
       ))}
       <td className="border px-2 py-1">

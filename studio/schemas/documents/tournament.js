@@ -19,6 +19,22 @@ export default {
       title: 'Tournament end'
     },
     {
+      name: 'games',
+      title: 'Spill',
+      description: 'Spill eller cup',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            { type: 'match' },
+            { type: 'cup' },
+
+          ]
+        }
+      ]
+    },
+    {
       name: 'mainRepresentation',
       type: 'image',
       title: 'Image',
@@ -31,7 +47,7 @@ export default {
       name: 'description',
       type: 'text',
       title: 'Description'
-    }
+    },
   ],
   preview: {
     select: {

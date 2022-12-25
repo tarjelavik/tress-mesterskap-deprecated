@@ -6,6 +6,7 @@ import Head from "next/head";
 import { CMS_NAME } from "../../lib/constants";
 import Header from "../../components/header";
 import Title from "../../components/title";
+import Link from 'next/link';
 
 export default function AllTournaments({ allTournaments, preview }) {
   const matches = allTournaments;
@@ -19,9 +20,8 @@ export default function AllTournaments({ allTournaments, preview }) {
         <Container>
           <Title>Turneringer</Title>
           {allTournaments && allTournaments.map(tournament => (
-            <article>
-              <h1 className='text-4xl mb-5'>{tournament.name}</h1>
-              <Matches matches={tournament.matches} />
+            <article key={tournament._id}>
+              <h1 className='text-4xl mb-5'><Link href={`/tournaments/${tournament._id}`}>{tournament.name}</Link></h1>
             </article>
           ))}
         </Container>

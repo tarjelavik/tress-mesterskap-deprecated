@@ -19,6 +19,8 @@ import portableText from './objects/portableText'
 import simplePortableText from './objects/simplePortableText'
 import textSection from './objects/textSection'
 import playerResult from './objects/playerResult'
+import cup from './documents/cup'
+import round from './objects/round'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -28,6 +30,7 @@ export default createSchema({
   types: schemaTypes.concat([
     // Documents
     match,
+    cup,
     tournament,
     page,
     player,
@@ -39,6 +42,7 @@ export default createSchema({
     internalLink,
     link,
     playerResult,
+    round,
     portableText,
     simplePortableText,
     textSection

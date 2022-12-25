@@ -14,6 +14,7 @@ const getUniqueDocuments = (documents) => {
 
 const matchFields = `
   _id,
+  _type,
   name,
   gameStart,
   results[]{
@@ -29,7 +30,7 @@ const tournamentFields = `
   _id,
   name,
   gameStart,
-  "matches": *[_type == 'match' && references(^._id)]| order(gameStart asc) {
+  "matches": *[_type in ['match', 'cup'] && references(^._id)]| order(gameStart asc) {
     ${matchFields}
   },
   description,
@@ -64,12 +65,17 @@ export async function getPreviewByID(id) {
 }
 
 export async function getAllMatchesWithID(preview) {
-  const data = await getClient(preview).fetch(`*[_type == "match"]`);
+  const data = await getClient(preview).fetch(`*[_type == "match"]{_id}`);
+  return data;
+}
+
+export async function getAllTournamentsWithID(preview) {
+  const data = await getClient(preview).fetch(`*[_type == "tournament"]{_id}`);
   return data;
 }
 
 export async function getAllPlayersWithID(preview) {
-  const data = await getClient(preview).fetch(`*[_type == "player"]`);
+  const data = await getClient(preview).fetch(`*[_type == "player"]{_id}`);
   return data;
 }
 
@@ -85,8 +91,18 @@ export async function getPlayer(id, preview) {
 
 export async function getMatch(id, preview) {
   const results = await getClient(preview).fetch(
-    `*[_type == "match" && _id == $id]{
+    `*[_type in ["match", "cup"] && _id == $id]{
       ${matchFields}
+    }`,
+    { id }
+  );
+  return results;
+}
+
+export async function getTournament(id, preview) {
+  const results = await getClient(preview).fetch(
+    `*[_type == "tournament" && _id == $id]{
+      ${tournamentFields}
     }`,
     { id }
   );
@@ -111,7 +127,7 @@ export async function getAllMatches(preview) {
 
 export async function getAllTournaments(preview) {
   const results = await getClient(preview)
-    .fetch(`*[_type == "tournament"] | order(gameStart desc){
+    .fetch(`*[_type == "tournament"] | order(end desc){
       ${tournamentFields}
     }`);
   return getUniqueDocuments(results);
@@ -144,6 +160,26 @@ export async function getAllPlayersByYear(year, preview) {
         }
       }
     }`, { yearStart, yearEnd });
+  return getUniqueDocuments(results);
+}
+
+export async function getAllPlayersByTournament(id, preview) {
+  const results = await getClient(preview)
+    .fetch(`*[_type == "player"] | order(name desc){
+      _id,
+      name,
+      mainRepresentation,
+      "games": *[_type in ['match'] && references(^._id) && references($id)]| order(gameStart asc) {
+        _id,
+        name,
+        gameStart,
+        results[]{
+          player, 
+          isWinner,
+          score
+        }
+      }
+    }`, { id });
   return getUniqueDocuments(results);
 }
 
