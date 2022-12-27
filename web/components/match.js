@@ -18,9 +18,9 @@ export default function Match({ match }) {
         </h3>
       </div>
 
-      <div className="md:col-span-9 lg:col-span-8 col-span-12">
+      {match._type === 'match' && (<div className="md:col-span-9 lg:col-span-8 col-span-12">
         {match.results && <MatchTable data={match.results} />}
-      </div>
+      </div>)}
 
       {match.mainRepresentation && match._type === 'match' && (
         <div className="md:col-span-3 lg:col-span-4 col-span-12 flex flex-col justify-end h-full">

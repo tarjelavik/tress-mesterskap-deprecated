@@ -5,7 +5,7 @@ import { GiCard5Clubs, GiCard10Clubs, GiCardJackClubs, GiCardQueenClubs, GiCard5
 import { urlFor } from '../lib/sanity';
 
 export default function MatchTable({ data }) {
-  const isTablet = useBreakpoint("lg");
+  const isOverTablet = useBreakpoint("md");
   const isOverMini = useBreakpoint("sm");
   const iconsSize = '22px'
   const headers = [
@@ -123,10 +123,10 @@ export default function MatchTable({ data }) {
           <Link
             href={`/players/${result.player._id}`}
           >
-            <>
-              {isTablet ? result.player.name : initials(result.player.name)}
-              {result.isWinner ? " ⭐" : ""}
-            </>
+            {result.isWinner ?
+              isOverTablet ? `${result.player.name} ⭐` : `${initials(result.player.name)} ⭐` :
+              isOverTablet ? `${result.player.name}` : `${initials(result.player.name)}`
+            }
           </Link>
         </div>
       </td>
