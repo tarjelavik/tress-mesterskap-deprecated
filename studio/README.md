@@ -1,1 +1,0 @@
-# tress-mesterskap-studio
