@@ -1,8 +1,0 @@
-{
-  "parts": [
-    {
-      "implements": "part:@sanity/dashboard/widget",
-      "path": "./index.js"
-    }
-  ]
-}
